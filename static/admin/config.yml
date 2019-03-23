@@ -1,6 +1,7 @@
 backend:
   name: github 
   repo: malectro/30songs-gatsby
+  branch: cms
 
 media_folder: static/assets
 public_folder: assets
