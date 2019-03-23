@@ -1,0 +1,45 @@
+backend:
+  name: github 
+  repo: malectro/30songs-gatsby
+
+media_folder: static/assets
+public_folder: assets
+
+collections:
+  - name: song
+    label: Song
+    folder: song
+    create: true
+    fields:
+      - {name: title, label: Title, widget: string}
+      - {name: day, label: Day, widget: number}
+      - {name: number, label: Number, widget: number}
+      - {name: artist, label: Artist, widget: string}
+      - {name: youtubeUrl, label: 'Youtube URL', widget: string, required: false}
+      - {name: spotifyUrl, label: 'Spotify URL', widget: string, required: false}
+      - {name: gamePath, label: 'Game Path', widget: string, required: false}
+      - {name: image, label: Image, widget: image, required: false}
+      - {name: cropImage, label: 'Crop image into a circle.', widget: boolean, default: true}
+      - {name: bio, label: Bio, widget: markdown, buttons: ['bold', 'italic', 'link'], required: false}
+      - {name: quote, label: Quote, widget: markdown, buttons: ['bold', 'italic', 'link'], required: false}
+      - {name: lyrics, label: Lyrics, widget: text, required: false}
+      - {name: state, label: State, widget: select, options: ['draft', 'published', 'archived'], default: 'draft'}
+
+  - name: navLink
+    label: 'Nav Link'
+    folder: navLink
+    create: true
+    fields:
+      - {name: title, label: Name, widget: string}
+      - {name: url, label: URL, widget: string}
+      - {name: order, label: Order, widget: number, default: 0}
+
+  - name: page
+    label: Page
+    folder: page
+    create: true
+    fields:
+      - {name: title, label: Title, widget: string}
+      - {name: slug, label: Slug, widget: string, pattern: ['[a-zA-Z0-9\-]+', 'Can only contain URL-friendly characters.']}
+      - {name: description, label: 'Description (necessary for About page)', widget: text, required: false}
+      - {name: content, label: Content, widget: markdown}
