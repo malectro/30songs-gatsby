@@ -1,0 +1,15 @@
+/* FONTS */
+/* Font Sizes */
+@value fontSizeBase: 14px;
+
+/* Font Families */
+@value fontTitle: 'Teko', sans-serif;
+@value fontSans: 'Helvetica Neue', Arial, sans-serif;
+@value fontSerif: Georgia, serif;
+@value fontSubtitle: Futura, 'Helvetica Neue', Arial, sans-serif;
+@value fontDefault: @value font-sans;
+
+/* Colors */
+@value colorRed: #EF4123;
+@value colorBlue: #00344D;
+@value colorYellow: #FFC20E;

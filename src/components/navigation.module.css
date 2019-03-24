@@ -1,0 +1,141 @@
+@value (
+  colorYellow
+  , colorBlue
+  , colorRed
+  , fontTitle
+) from 'src/styles/variables.module.css';
+
+.fixedSpace {
+  position: relative;
+  width: 200px;
+  margin: 0 20px;
+}
+
+.fixed {
+  position: fixed;
+  width: 200px;
+  height: 100vh;
+  align-items: center;
+}
+
+.fixed.unpin {
+  position: absolute;
+  bottom: 0;
+}
+
+.main {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+}
+
+.top {
+  flex-flow: column;
+  justify-content: center;
+  box-sizing: border-box;
+  background: colorYellow;
+  height: 120px;
+  padding: 20px;
+  margin-bottom: 10px;
+  color: colorBlue;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.25;
+}
+.top > div {
+  font-style: normal;
+}
+
+.songLinksBuffer {
+  height: 10px;
+}
+
+.songLinksArrows {
+  justify-content: space-between;
+  height: 60px;
+  margin: 10px 0;
+}
+
+.arrowLeft, .arrowRight {
+  background: no-repeat;
+  background-image: url(src/images/arrow-back.svg), url(src/images/arrow-back-star.svg);
+  background-position: center, -100px;
+  background-size: contain;
+  width: 30px;
+  cursor: pointer;
+}
+.arrowRight {
+  background-image: url(src/images/arrow.svg), url(src/images/arrow-star.svg);
+}
+.arrowLeft:hover {
+  background-image: url(src/images/arrow-back-star.svg);
+}
+.arrowRight:hover {
+  background-image: url(src/images/arrow-star.svg);
+}
+
+.arrowNumber {
+  margin-top: -7px;
+  font-family: fontTitle;
+  font-size: 60px;
+  color: colorRed;
+}
+
+.arrowBlank {
+  width: 30px;
+}
+
+.songLinks {
+  display: none;
+}
+
+.dot {
+  margin: 0 10px;
+}
+
+.links {
+  flex: 1 0 auto;
+  flex-flow: column;
+  padding: 16px 20px;
+  background-color: colorYellow;
+  color: colorBlue;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.links a:hover {
+  background: colorBlue;
+  color: white;
+}
+
+.link {
+  padding: 4px 0;
+}
+
+.stars {
+  height: 20px;
+  margin: 10px 0;
+}
+.star {
+  flex: 1 0 0;
+  margin: 0 5px;
+  background: no-repeat;
+  background-size: 100%;
+}
+.star:first-child {
+  margin-left: 0;
+}
+.star:last-child {
+  margin-right: 0;
+}
+.star.star-blue {
+  background-image: url(src/images/star-blue.svg);
+}
+.star.star-red {
+  background-image: url(src/images/star-red.svg);
+}
+.star.mobile {
+  display: none;
+}
