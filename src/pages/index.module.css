@@ -1,41 +1,241 @@
-.main {
-  display: flex;
-  flex-flow: column;
-  align-items: stretch;
-  min-height: 100%;
-  min-width: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-}
+@value (
+  colorRed
+  , colorBlue
+  , fontTitle
+  , fontSubtitle
+)
+
 
 .wrapper {
+  flex: 1 0 0;
+  flex-flow: column;
+  max-width: 900px;
+}
+
+.splash {
   flex: 1 0 auto;
-  justify-content: center;
-  min-width: 0;
+  flex-flow: column;
+  max-width: 900px;
 }
 
-.center {
-  flex: 1 0 0;
-  max-width: 1000px;
-  min-width: 0;
-}
-
-.content {
-  flex: 1 0 0;
-  justify-content: center;
-  min-width: 0;
-}
-
-.footer {
-  position: relative;
-  z-index: 1;
+.header {
   display: inherit;
-  height: 40px;
-  padding: 20px 0;
-  justify-content: center;
   align-self: stretch;
+  justify-content: center;
 }
-.footerEagle {
-  width: 40px;
-  background: url(src/images/eagle.svg) center no-repeat;
+
+.headerQuote {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 35px;
+  margin-left: -38px;
+  text-align: center;
+  font-family: fontSubtitle;
+  font-size: 20px;
+  color: colorRed;
+}
+.headerQuote .quote {
+  font-style: italic;
+}
+
+.links {
+  position: relative;
+  top: 70px;
+  top: 110px;
+  left: 190px;
+  flex: 1 0 0;
+  flex-flow: row wrap;
+  max-width: 860px;
+  max-width: 450px;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  padding: 20px 0 0;
+  color: colorBlue;
+  font-family: fontTitle;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 16px;
+  letter-spacing: 3px;
+}
+
+.links a:hover {
+  color: colorRed;
+}
+
+.headerSocial {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+.headerSocialLink:hover .socialUseIcon {
+  fill: colorRed;
+}
+
+.logo {
+  flex: 0 0 auto;
+  margin: -30px 20px 20px;
+}
+
+.social {
+  margin: 20px 0 40px;
+  padding: 0 20px;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.socialLink {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  padding: 0 10px;
+  background: #efefef;
+  cursor: pointer;
+  font-weight: bold;
+  color: colorBlue;
+  letter-spacing: 3px;
+}
+.socialLink:hover {
+  color: colorRed;
+}
+.socialLink:hover .socialUseIcon {
+  fill: colorRed;
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.6em;
+}
+.socialIcon.facebook {
+  height: 18px;
+}
+
+.socialUseIcon {
+  fill: colorBlue;
+}
+
+.songs {
+  display: inherit;
+  align-self: center;
+  flex-flow: row wrap;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.song {
+  display: inherit;
+  width: 410px;
+  margin: 0 20px 20px;
+}
+
+.songItem {
+  display: inherit;
+  flex: 1 0 0;
+  align-items: flex-start;
+}
+
+.songNumber {
+  font-family: fontTitle;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 1;
+  color: colorBlue;
+}
+
+.songInfo {
+  margin: 0 20px;
+  flex: 1 0 0;
+  flex-flow: column;
+}
+
+.songTitle, .songArtist {
+  font-family: $font-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.songArtist {
+  color: colorRed;
+}
+
+.songTitle {
+  font-style: italic;
+  color: colorBlue;
+}
+.songTitle::before {
+  content: '“';
+}
+.songTitle::after {
+  content: '”';
+}
+
+.songArrow {
+  width: 28px;
+  height: 68px;
+  background: no-repeat;
+  background-image: url(../images/arrow-back.svg), url(../images/arrow-back-star.svg);
+  background-position: center, -1000px;
   background-size: contain;
 }
+.song:hover .songArrow {
+  background-image: url(../images/arrow-back-star.svg);
+}
+
+@media(max-width: 900px) {
+  .headerSocial {
+    display: none;
+  }
+  .headerQuote {
+    display: none;
+  }
+  .links {
+    position: static;
+    padding: 20px 20px 0;
+    max-width: 860px;
+  }
+  .links a {
+    position: static;
+  }
+  .logo {
+    margin-top: 20px;
+  }
+  .social {
+    margin: 0 0 20px;
+  }
+  .socialLink {
+    background: none !important;
+    padding: 0;
+  }
+  .socialLink svg {
+    margin: 0;
+  }
+  .socialLink span {
+    display: none;
+  }
+  .songs {
+    flex-flow: column;
+    align-items: stretch;
+    max-width: 400px;
+  }
+  .song {
+    margin: 0 20px 20px;
+    width: initial;
+  }
+}
+
+@media(max-width: 400px) {
+  .songs {
+    align-self: stretch;
+  }
+}
+
+@media(max-width: 360px) {
+  .links {
+    flex-flow: column;
+    line-height: 1.2;
+  }
+}
+
