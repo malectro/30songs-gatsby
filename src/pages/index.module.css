@@ -3,7 +3,7 @@
   , colorBlue
   , fontTitle
   , fontSubtitle
-)
+) from 'src/styles/variables.module.css';
 
 
 .wrapper {

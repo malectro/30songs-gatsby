@@ -1,0 +1,33 @@
+@value (
+  fontSerif
+  , colorBlue
+  , colorRed
+) from 'src/styles/variables.module.css';
+
+.page {
+  display: block;
+  flex: 1 0 0;
+  padding: 3px 20px 20px;
+  font-family: fontSerif;
+  line-height: 1.25;
+  font-size: 16px;
+}
+
+.page h1 {
+  text-transform: uppercase;
+  font-family: 'Teko', sans-serif;
+  font-size: 64px;
+  line-height: 0.8;
+  margin: 20px 0 0;
+  color: colorBlue;
+}
+
+.page strong a {
+  color: colorRed;
+}
+.page strong a:hover {
+  color: colorBlue;
+}
+.page a:hover {
+  color: colorRed;
+}

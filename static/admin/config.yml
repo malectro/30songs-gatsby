@@ -43,4 +43,4 @@ collections:
       - {name: title, label: Title, widget: string}
       - {name: slug, label: Slug, widget: string, pattern: ['[a-zA-Z0-9\-]+', 'Can only contain URL-friendly characters.']}
       - {name: description, label: 'Description (necessary for About page)', widget: text, required: false}
-      - {name: content, label: Content, widget: markdown}
+      - {name: body, label: Content, widget: markdown}
