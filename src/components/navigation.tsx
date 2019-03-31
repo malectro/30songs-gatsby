@@ -1,25 +1,39 @@
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import {useStaticQuery, graphql} from 'gatsby';
 
+import {songsQuery} from 'src/pages/index'
+
 import css from './navigation.module.css';
 
-export default function Navigation({songNumber, latestSongNumber = 10}: {songNumber?: number, latestSongNumber?: number}) {
+export default function Navigation({
+  songNumber,
+  latestSongNumber = 10,
+}: {
+  songNumber?: number;
+  latestSongNumber?: number;
+}) {
   const data: {
     allMarkdownRemark: {
       edges: Array<{
         node: {
-          id: string,
+          id: string;
           frontmatter: {
-            url: string,
-            title: string,
-          },
-        },
-      }>,
-    }
+            url: string;
+            title: string;
+          };
+        };
+      }>;
+    };
   } = useStaticQuery(query);
 
-  if (!data) {
+  const songsData: {
+    allMarkdownRemark: {
+      edges: [];
+    };
+  } = useStaticQuery(songsQuery);
+
+  if (!data || !songsData) {
     return null;
   }
 
@@ -29,6 +43,8 @@ export default function Navigation({songNumber, latestSongNumber = 10}: {songNum
       id,
     }),
   );
+
+  const totalSongs = songsData.allMarkdownRemark.edges.length;
 
   return (
     <div className={css.fixedSpace}>
@@ -45,17 +61,25 @@ export default function Navigation({songNumber, latestSongNumber = 10}: {songNum
 
           {Number.isInteger(songNumber) ? (
             <div className={css.songLinksArrows}>
-              {songNumber > 1 ?
-                <a className={css.arrowLeft} href={`/${songNumber - 1}`} title="Previous Song" />
-              :
+              {songNumber > 1 ? (
+                <a
+                  className={css.arrowLeft}
+                  href={`/${songNumber - 1}`}
+                  title="Previous Song"
+                />
+              ) : (
                 <div className={css.arrowBlank} />
-              }
+              )}
               <div className={css.arrowNumber}>{songNumber}</div>
-              {songNumber < latestSongNumber ?
-                <a className={css.arrowRight} href={`/${songNumber + 1}`} title="Next Song" />
-              :
+              {songNumber < totalSongs - 1 ? (
+                <a
+                  className={css.arrowRight}
+                  href={`/${songNumber + 1}`}
+                  title="Next Song"
+                />
+              ) : (
                 <div className={css.arrowBlank} />
-              }
+              )}
             </div>
           ) : (
             <div className={css.songLinksBuffer} />

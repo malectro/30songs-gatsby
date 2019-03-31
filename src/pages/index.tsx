@@ -23,7 +23,7 @@ export default () => {
         };
       }>;
     };
-  } = useStaticQuery(query);
+  } = useStaticQuery(songsQuery);
 
   const header = (
     <div className={css.header}>
@@ -140,7 +140,7 @@ export default () => {
   );
 };
 
-const query = graphql`
+export const songsQuery = graphql`
   query HomePageQuery {
     allMarkdownRemark(
       sort: {order: DESC, fields: [frontmatter___number]}
