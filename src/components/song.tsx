@@ -1,9 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import {graphql} from 'gatsby';
 import Helmet from 'react-helmet';
 
-import Layout from 'src/components/layout.tsx';
-import ogMeta from 'src/components/og-meta.tsx';
+import Layout from 'src/components/layout';
+import Navigation from 'src/components/navigation';
+import ogMeta from 'src/components/og-meta';
 
 import css from './song.module.css';
 
@@ -49,14 +50,10 @@ export default function Song({
     },
   } = data;
 
-  console.log('hio', data);
-
   const youtubeId = youtubeUrl && new URL(youtubeUrl).searchParams.get('v');
 
-  console.log('hi', quote);
-
   return (
-    <Layout>
+    <Layout navigation={<Navigation songNumber={number} />}>
       <Helmet>
         <title>{artist} - 30 Days, 30 Songs</title>
         <meta name="description" content={title} />

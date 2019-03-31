@@ -1,15 +1,14 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import Navigation from 'src/components/navigation.tsx';
 import ogMeta from 'src/components/og-meta.tsx';
 
 import css from './layout.module.css';
 
 
-export default function Layout({header, showNavigation = true, children}: {
+export default function Layout({header, navigation, children}: {
   header?: React.ReactNode,
-  showNavigation: boolean,
+  navigation?: React.ReactNode,
   children: React.ReactNode,
 }) {
   const titleText = '30 Days, 30 Songs';
@@ -34,7 +33,7 @@ export default function Layout({header, showNavigation = true, children}: {
       <div className={css.wrapper}>
         <div className={css.center}>
           <div className={css.content}>{children}</div>
-          {showNavigation && <Navigation />}
+          {navigation}
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {graphql} from 'gatsby';
 
 import Layout from 'src/components/layout.tsx';
+import Navigation from 'src/components/navigation.tsx';
 
 import css from './page.module.css';
 
@@ -26,7 +27,7 @@ export default function Page({
   } = data;
 
   return (
-    <Layout>
+    <Layout navigation={<Navigation />}>
       <div className={css.page} dangerouslySetInnerHTML={{__html: html}} />
     </Layout>
   );

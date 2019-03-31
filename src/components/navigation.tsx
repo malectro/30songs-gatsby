@@ -4,7 +4,7 @@ import {useStaticQuery, graphql} from 'gatsby';
 
 import css from './navigation.module.css';
 
-export default function Navigation({song}: {song?: {}}) {
+export default function Navigation({songNumber, latestSongNumber = 10}: {songNumber?: number, latestSongNumber?: number}) {
   const data: {
     allMarkdownRemark: {
       edges: Array<{
@@ -43,8 +43,20 @@ export default function Navigation({song}: {song?: {}}) {
             <img className={css.logoImg} />
           </a>
 
-          {song ? (
-            <div className={css.songLinksArrows} />
+          {Number.isInteger(songNumber) ? (
+            <div className={css.songLinksArrows}>
+              {songNumber > 1 ?
+                <a className={css.arrowLeft} href={`/${songNumber - 1}`} title="Previous Song" />
+              :
+                <div className={css.arrowBlank} />
+              }
+              <div className={css.arrowNumber}>{songNumber}</div>
+              {songNumber < latestSongNumber ?
+                <a className={css.arrowRight} href={`/${songNumber + 1}`} title="Next Song" />
+              :
+                <div className={css.arrowBlank} />
+              }
+            </div>
           ) : (
             <div className={css.songLinksBuffer} />
           )}
