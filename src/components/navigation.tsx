@@ -20,6 +20,7 @@ export default function Navigation({
           frontmatter: {
             url: string;
             title: string;
+            state: string;
           };
         };
       }>;
@@ -39,8 +40,8 @@ export default function Navigation({
       id,
     }));
 
-  const totalSongs = nodes.filter(({fileAbsolutePath}) =>
-    fileAbsolutePath.match(/\/songs\//),
+  const totalSongs = nodes.filter(({fileAbsolutePath, frontmatter: {state}}) =>
+    fileAbsolutePath.match(/\/songs\//) && state === 'published',
   ).length;
 
   return (
@@ -108,6 +109,7 @@ const query = graphql`
             title
             url
             order
+            state
           }
         }
       }

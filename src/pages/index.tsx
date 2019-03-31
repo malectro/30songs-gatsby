@@ -144,7 +144,7 @@ const query = graphql`
   query HomePageQuery {
     allMarkdownRemark(
       sort: {order: DESC, fields: [frontmatter___number]}
-      filter: {fileAbsolutePath: {regex: "/songs\/[^\/]+/"}}
+      filter: {fileAbsolutePath: {regex: "/songs\/[^\/]+/"}, frontmatter: {state: {eq: "published"}}}
     ) {
       edges {
         node {
@@ -153,6 +153,7 @@ const query = graphql`
             artist
             title
             number
+            state
           }
         }
       }
