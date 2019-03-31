@@ -26,6 +26,8 @@ export default function Layout({header, navigation, children}: {
           description: aboutText,
           site_name: titleText,
         })}
+        <link href="https://fonts.googleapis.com/css?family=Teko:500" rel="stylesheet" />
+        <script src="/js/paint-brush.js" defer async></script>
       </Helmet>
 
       {header ? header : <div className={css.empty} />}

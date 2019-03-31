@@ -101,7 +101,7 @@ export default function Song({
               ) : (
                 <img className={css.image} src={image} />
               ))}
-            <div className={css.bio} dangerouslySetInnerHTML={{__html: bio}} />
+            <div className={css.bio} paintColor="" dangerouslySetInnerHTML={{__html: bio}} />
           </div>
 
           <div className={css.infoCol2}>

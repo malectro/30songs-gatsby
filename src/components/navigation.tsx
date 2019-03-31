@@ -48,7 +48,7 @@ export default function Navigation({
     <div className={css.fixedSpace}>
       <div className={css.fixed}>
         <nav className={css.main}>
-          <div className={css.top}>
+          <div className={css.top} paintColor="">
             “A playlist of songs that Donald Trump will hate.”
             <div>The Washington Post</div>
           </div>
@@ -83,7 +83,7 @@ export default function Navigation({
             <div className={css.songLinksBuffer} />
           )}
 
-          <div className={css.links}>
+          <div className={css.links} paintColor="">
             {navLinks.map(navLink => (
               <div className={css.link} key={navLink.id}>
                 <a href={navLink.url}>{navLink.title}</a>
