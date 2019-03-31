@@ -1,38 +1,71 @@
 const path = require('path');
 
-exports.createPages = ({actions, graphql}) => {
+exports.createPages = async ({actions, graphql}) => {
   const {createPage} = actions;
 
-  const Component = path.resolve(`src/components/page.tsx`);
+  const pageComponent = path.resolve(`src/components/page.tsx`);
+  const songComponent = path.resolve(`src/components/song.tsx`);
 
-  return graphql(`
-    {
-      allMarkdownRemark(
-        filter: {fileAbsolutePath: {regex: "/pages/"}}
-        limit: 1000
-      ) {
-        edges {
-          node {
-            id
-            fileAbsolutePath
-            frontmatter {
-              slug
+  const [pages, songs] = await Promise.all([
+    graphql(`
+      {
+        allMarkdownRemark(
+          filter: {fileAbsolutePath: {regex: "/pages/"}}
+          limit: 1000
+        ) {
+          edges {
+            node {
+              id
+              fileAbsolutePath
+              frontmatter {
+                slug
+              }
             }
           }
         }
       }
-    }
-  `).then(result => {
-    if (result.errors) {
-      return Promise.reject(result.errors);
-    }
+    `),
+    graphql(`
+      {
+        allMarkdownRemark(
+          filter: {fileAbsolutePath: {regex: "/songs/"}}
+          limit: 1000
+        ) {
+          edges {
+            node {
+              id
+              fileAbsolutePath
+              frontmatter {
+                number
+              }
+            }
+          }
+        }
+      }
+    `),
+  ]);
 
-    result.data.allMarkdownRemark.edges.forEach(({node}) => {
-      createPage({
-        path: node.frontmatter.slug,
-        component: Component,
-        context: {id: node.id}, // additional data can be passed via context
-      });
+  if (pages.errors) {
+    throw page.errors;
+  }
+
+  pages.data.allMarkdownRemark.edges.forEach(({node}) => {
+    createPage({
+      path: node.frontmatter.slug,
+      component: pageComponent,
+      context: {id: node.id}, // additional data can be passed via context
     });
+  });
+
+  if (songs.errors) {
+    throw songs.errors;
+  }
+
+  songs.data.allMarkdownRemark.edges.forEach(({node}) => {
+    createPage({
+      path: String(node.frontmatter.number), 
+      component: songComponent,
+      context: {id: node.id},
+    })
   });
 };

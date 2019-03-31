@@ -5,6 +5,11 @@ backend:
 
 media_folder: static/assets
 public_folder: assets
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: malectro
+    api_key: 561259823196826
 
 collections:
   - name: song
