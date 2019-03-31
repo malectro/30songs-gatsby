@@ -12,7 +12,7 @@ exports.createPages = async ({actions, graphql}) => {
     graphql(`
       {
         allMarkdownRemark(
-          filter: {fileAbsolutePath: {regex: "/pages/"}}
+          filter: {fileAbsolutePath: {regex: "/\/pages\//"}}
           limit: 1000
         ) {
           edges {
@@ -30,7 +30,7 @@ exports.createPages = async ({actions, graphql}) => {
     graphql(`
       {
         allMarkdownRemark(
-          filter: {fileAbsolutePath: {regex: "/songs/"}}
+          filter: {fileAbsolutePath: {regex: "/\/songs\//"}}
           limit: 1000
         ) {
           edges {
