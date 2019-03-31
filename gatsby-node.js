@@ -74,7 +74,6 @@ exports.createPages = async ({actions, graphql}) => {
 
 exports.onCreateNode = ({node}) => {
   if (node.fileAbsolutePath && node.fileAbsolutePath.match(/\/songs\//)) {
-    console.log('creating song', node);
     ['bio', 'quote'].forEach(fieldName => {
       const markdown = node.frontmatter[fieldName];
       if (markdown) {
