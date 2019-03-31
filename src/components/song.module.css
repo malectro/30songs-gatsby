@@ -1,0 +1,162 @@
+.song {
+  flex: 1 0 0;
+  flex-flow: column;
+  padding: 40px 20px;
+  min-width: 0;
+}
+
+.day {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 24px;
+  margin: 0;
+}
+
+.artist, .title, .gameArtist, .gameSong {
+  min-width: 0;
+  font-family: $font-title;
+  font-weight: 800;
+  font-size: 92px;
+  line-height: 1;
+  letter-spacing: 2px;
+  overflow-wrap: break-word;
+}
+
+.artist, .gameArtist {
+  text-transform: uppercase;
+  color: $color-red;
+  margin: 0;
+}
+
+.title, .gameSong {
+  margin: 0;
+  font-style: italic;
+  line-height: 0.8;
+  color: $color-blue;
+}
+.title::before {
+  content: '“';
+}
+.title::after {
+  content: '”';
+}
+
+.startGame {
+  position: relative;
+}
+.startGame:hover {
+  opacity: 0.8;
+}
+.game {
+  min-height: 600px;
+}
+
+.video, .game, .startGame {
+  margin: 20px 0 0;
+}
+
+.widget {
+  margin: 20px 0 20px;
+}
+
+.info {
+  align-items: flex-start;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.infoCol1 {
+  flex: 0 0 220px;
+  flex-flow: column;
+  margin-right: 40px;
+}
+.image {
+  width: 220px;
+  height: 220px;
+  background: center;
+  background-size: cover;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+img.image {
+  height: auto;
+  border-radius: 0;
+}
+.bio {
+  margin-top: 20px;
+  line-height: 1.25;
+  font-size: 14px;
+  font-family: $font-serif;
+  background: $color-yellow;
+  padding: 20px;
+}
+.bio > * {
+  margin: 0;
+}
+
+.infoCol2 {
+  flex: 1 0 0;
+  flex-flow: column;
+  font-family: $font-serif;
+}
+.quote {
+  display: block;
+  position: relative;
+  margin: 10px 0 0;
+  padding: 0 0 0 50px;
+  font-size: 22px;
+}
+.quote::before {
+  content: '“';
+  position: absolute;
+  left: -10px;
+  top: -25px;
+  font-size: 120px;
+  color: #efefef;
+}
+
+.lyricsLabel {
+  margin-top: 10px;
+  font-size: 22px;
+  color: red;
+  text-transform: uppercase;
+}
+.lyrics {
+  white-space: pre-wrap;
+}
+
+@media(max-width: 800px) {
+  .info {
+    flex-flow: column;
+  }
+  .infoCol1, .infoCol2 {
+    flex: 1 0 auto;
+    margin: 0;
+  }
+  .image {
+    align-self: center;
+  }
+}
+
+@media(max-width: 500px) {
+  .artist, .title {
+    font-size: 64px;
+  }
+}
+
+.game {
+  flex-flow: column;
+  align-items: center;
+}
+.game .game {
+  margin-top: 20px;
+}
+.game .loading {
+  margin-top: 20px;
+}
+.game .instructions {
+  display: block;
+  margin: 20px 0 0;
+  text-align: center;
+}
+

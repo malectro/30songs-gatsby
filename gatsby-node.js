@@ -1,4 +1,6 @@
 const path = require('path');
+const remark = require('remark');
+const remarkHtml = require('remark-html');
 
 exports.createPages = async ({actions, graphql}) => {
   const {createPage} = actions;
@@ -63,9 +65,25 @@ exports.createPages = async ({actions, graphql}) => {
 
   songs.data.allMarkdownRemark.edges.forEach(({node}) => {
     createPage({
-      path: String(node.frontmatter.number), 
+      path: String(node.frontmatter.number),
       component: songComponent,
       context: {id: node.id},
-    })
+    });
   });
+};
+
+exports.onCreateNode = ({node}) => {
+  if (node.fileAbsolutePath && node.fileAbsolutePath.match(/\/songs\//)) {
+    console.log('creating song', node);
+    ['bio', 'quote'].forEach(fieldName => {
+      const markdown = node.frontmatter[fieldName];
+      if (markdown) {
+        node.frontmatter[fieldName] = remark()
+          .use(remarkHtml)
+          .processSync(markdown)
+          .toString();
+      }
+    });
+  }
+  return node;
 };
