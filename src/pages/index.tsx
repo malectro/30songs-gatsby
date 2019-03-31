@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Helmet from 'react-helmet';
 import {graphql, useStaticQuery} from 'gatsby';
 
@@ -23,7 +23,7 @@ export default () => {
         };
       }>;
     };
-  } = useStaticQuery(songsQuery);
+  } = useStaticQuery(query);
 
   const header = (
     <div className={css.header}>
@@ -140,7 +140,7 @@ export default () => {
   );
 };
 
-export const songsQuery = graphql`
+const query = graphql`
   query HomePageQuery {
     allMarkdownRemark(
       sort: {order: DESC, fields: [frontmatter___number]}

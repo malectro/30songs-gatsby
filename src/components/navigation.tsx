@@ -2,8 +2,6 @@ import * as React from 'react';
 import classnames from 'classnames';
 import {useStaticQuery, graphql} from 'gatsby';
 
-import {songsQuery} from 'src/pages/index'
-
 import css from './navigation.module.css';
 
 export default function Navigation({
@@ -18,6 +16,7 @@ export default function Navigation({
       edges: Array<{
         node: {
           id: string;
+          fileAbsolutePath: string;
           frontmatter: {
             url: string;
             title: string;
@@ -27,24 +26,22 @@ export default function Navigation({
     };
   } = useStaticQuery(query);
 
-  const songsData: {
-    allMarkdownRemark: {
-      edges: [];
-    };
-  } = useStaticQuery(songsQuery);
-
-  if (!data || !songsData) {
+  if (!data) {
     return null;
   }
 
-  const navLinks = data.allMarkdownRemark.edges.map(
-    ({node: {id, frontmatter}}) => ({
+  const nodes = data.allMarkdownRemark.edges.map(({node}) => node);
+
+  const navLinks = nodes
+    .filter(({fileAbsolutePath}) => fileAbsolutePath.match(/\/navLinks\//))
+    .map(({id, frontmatter}) => ({
       ...frontmatter,
       id,
-    }),
-  );
+    }));
 
-  const totalSongs = songsData.allMarkdownRemark.edges.length;
+  const totalSongs = nodes.filter(({fileAbsolutePath}) =>
+    fileAbsolutePath.match(/\/songs\//),
+  ).length;
 
   return (
     <div className={css.fixedSpace}>
@@ -71,7 +68,7 @@ export default function Navigation({
                 <div className={css.arrowBlank} />
               )}
               <div className={css.arrowNumber}>{songNumber}</div>
-              {songNumber < totalSongs - 1 ? (
+              {songNumber < totalSongs ? (
                 <a
                   className={css.arrowRight}
                   href={`/${songNumber + 1}`}
@@ -101,12 +98,12 @@ export default function Navigation({
 const query = graphql`
   query NavigationQuery {
     allMarkdownRemark(
-      sort: {order: DESC, fields: [frontmatter___order]}
-      filter: {fileAbsolutePath: {regex: "/navLinks/"}}
+      filter: {fileAbsolutePath: {regex: "//(navLinks|songs)//"}}
     ) {
       edges {
         node {
           id
+          fileAbsolutePath
           frontmatter {
             title
             url
