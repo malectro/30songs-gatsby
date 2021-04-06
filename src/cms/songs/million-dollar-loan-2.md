@@ -5,7 +5,7 @@ number: 2
 artist: Death Cab for Cutie
 youtubeUrl: 'https://www.youtube.com/watch?v=XE0nOfTA3pY'
 spotifyUrl: 'https://open.spotify.com/track/1GYBuQqnafHhf1HFU6jqud'
-image: 'https://res.cloudinary.com/malectro/image/upload/v1553988581/sample.jpg'
+image: 'https://30songs.s3.amazonaws.com/ce03fb7471ecac41e3cc981b5f84a203.jpg'
 cropImage: true
 bio: Death Cab for Cutie's most recent album is _Kintsugi_.
 quote: >-

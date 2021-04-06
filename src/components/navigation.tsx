@@ -1,8 +1,9 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import {useStaticQuery, graphql} from 'gatsby';
+import {useStaticQuery, graphql, Link} from 'gatsby';
+import {StaticImage} from 'gatsby-plugin-image';
 
-import css from './navigation.module.css';
+import * as css from './navigation.module.css';
 
 export default function Navigation({
   songNumber,
@@ -25,6 +26,14 @@ export default function Navigation({
         };
       }>;
     };
+    allNavLinksJson: {
+      edges: Array<{
+        node: {
+          url: string;
+          title: string;
+        };
+      }>;
+    };
   } = useStaticQuery(query);
 
   if (!data) {
@@ -32,16 +41,20 @@ export default function Navigation({
   }
 
   const nodes = data.allMarkdownRemark.edges.map(({node}) => node);
+  const navLinks = data.allNavLinksJson.edges.map(({node}) => node);
 
+  /*
   const navLinks = nodes
     .filter(({fileAbsolutePath}) => fileAbsolutePath.match(/\/navLinks\//))
     .map(({id, frontmatter}) => ({
       ...frontmatter,
       id,
     }));
+  */
 
-  const totalSongs = nodes.filter(({fileAbsolutePath, frontmatter: {state}}) =>
-    fileAbsolutePath.match(/\/songs\//) && state === 'published',
+  const totalSongs = nodes.filter(
+    ({fileAbsolutePath, frontmatter: {state}}) =>
+      state === 'published',
   ).length;
 
   return (
@@ -53,16 +66,16 @@ export default function Navigation({
             <div>The Washington Post</div>
           </div>
 
-          <a className={css.logoLink} href="/">
-            <img className={css.logoImg} />
-          </a>
+          <Link className={css.logoLink} href="/">
+            <StaticImage className={css.logoImg} src="../images/logo-simple-1000.svg" />
+          </Link>
 
           {Number.isInteger(songNumber) ? (
             <div className={css.songLinksArrows}>
               {songNumber > 1 ? (
-                <a
+                <Link
                   className={css.arrowLeft}
-                  href={`/${songNumber - 1}`}
+                  to={`/${songNumber - 1}`}
                   title="Previous Song"
                 />
               ) : (
@@ -70,9 +83,9 @@ export default function Navigation({
               )}
               <div className={css.arrowNumber}>{songNumber}</div>
               {songNumber < totalSongs ? (
-                <a
+                <Link
                   className={css.arrowRight}
-                  href={`/${songNumber + 1}`}
+                  to={`/${songNumber + 1}`}
                   title="Next Song"
                 />
               ) : (
@@ -85,7 +98,7 @@ export default function Navigation({
 
           <div className={css.links} paintColor="">
             {navLinks.map(navLink => (
-              <div className={css.link} key={navLink.id}>
+              <div className={css.link} key={navLink.url}>
                 <a href={navLink.url}>{navLink.title}</a>
               </div>
             ))}
@@ -99,7 +112,7 @@ export default function Navigation({
 const query = graphql`
   query NavigationQuery {
     allMarkdownRemark(
-      filter: {fileAbsolutePath: {regex: "//(navLinks|songs)//"}}
+      filter: {fileAbsolutePath: {regex: "//songs//"}}
     ) {
       edges {
         node {
@@ -111,6 +124,15 @@ const query = graphql`
             order
             state
           }
+        }
+      }
+    }
+    allNavLinksJson {
+      edges {
+        node {
+          title
+          url
+          order
         }
       }
     }

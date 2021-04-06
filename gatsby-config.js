@@ -21,6 +21,7 @@ module.exports = {
         name: 'page',
       }
     },
+    'gatsby-transformer-json',
     'gatsby-transformer-remark',
     'gatsby-plugin-netlify-cms',
     {
@@ -32,5 +33,7 @@ module.exports = {
     },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-root-import',
+    'gatsby-plugin-image',
+    'gatsby-plugin-sharp',
   ],
 }

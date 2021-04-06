@@ -1,0 +1,17 @@
+[
+  {
+    "title": "About",
+    "url": "about",
+    "order": 1
+  },
+  {
+    "title": "Organize",
+    "url": "organize",
+    "order": 3
+  },
+  {
+    "title": "Masthead",
+    "url": "masthead",
+    "order": 4
+  }
+]

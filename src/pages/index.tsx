@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import {graphql, useStaticQuery} from 'gatsby';
+import {graphql, useStaticQuery, Link} from 'gatsby';
 
 import Layout from 'src/components/layout.tsx';
 
 import socialIcons from 'src/images/social-icons.svg';
 import logo from 'src/images/long-logo-1000.svg';
 
-import css from './index.module.css';
+import * as css from './index.module.css';
 
 export default () => {
   const data: {
@@ -35,15 +35,15 @@ export default () => {
       </div>
 
       <div className={css.links}>
-        <a className={css.linkAbout} href="/about">
+        <Link className={css.linkAbout} to="/about">
           About
-        </a>
+        </Link>
         <a className={css.linkRegister} href="https://www.headcount.org/">
           Register to Vote
         </a>
-        <a className={css.linkMasthead} href="/masthead">
+        <Link className={css.linkMasthead} to="/masthead">
           Masthead
-        </a>
+        </Link>
       </div>
 
       <div className={css.headerSocial}>

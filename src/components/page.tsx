@@ -4,7 +4,7 @@ import {graphql} from 'gatsby';
 import Layout from 'src/components/layout.tsx';
 import Navigation from 'src/components/navigation.tsx';
 
-import css from './page.module.css';
+import * as css from './page.module.css';
 
 export default function Page({
   data,

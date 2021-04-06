@@ -6,7 +6,7 @@ import Layout from 'src/components/layout';
 import Navigation from 'src/components/navigation';
 import ogMeta from 'src/components/og-meta';
 
-import css from './song.module.css';
+import * as css from './song.module.css';
 
 export default function Song({
   data,
