@@ -89,7 +89,7 @@ export default function Navigation({
           <div className={css.links} paintColor="">
             {navLinks.map(navLink => (
               <div className={css.link} key={navLink.url}>
-                <a href={navLink.url}>{navLink.name}</a>
+                <Link to={navLink.url}>{navLink.name}</Link>
               </div>
             ))}
           </div>

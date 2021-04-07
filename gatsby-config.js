@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/30-days-30-songs',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
