@@ -56,7 +56,7 @@ export default function Navigation({
             <div>The Washington Post</div>
           </div>
 
-          <Link className={css.logoLink} href="/">
+          <Link className={css.logoLink} to="/">
             <StaticImage className={css.logoImg} src="../images/logo-simple-1000.svg" />
           </Link>
 
