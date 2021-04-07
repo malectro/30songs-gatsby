@@ -21,6 +21,13 @@ module.exports = {
         name: 'page',
       }
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/mongostuff`,
+        name: 'mongo',
+      }
+    },
     'gatsby-transformer-json',
     'gatsby-transformer-remark',
     'gatsby-plugin-netlify-cms',

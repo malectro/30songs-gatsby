@@ -1,5 +1,3 @@
-console.log('painting');
-
 const interval = 2.1;
 const variance = 0.6;
 
@@ -17,7 +15,7 @@ if (!HTMLCanvasElement.prototype.toBlob) {
         len = binStr.length,
         arr = new Uint8Array(len);
 
-    for (var i=0; i<len; i++ ) {
+    for (var i = 0; i < len; i++ ) {
      arr[i] = binStr.charCodeAt(i);
     }
 
@@ -116,9 +114,9 @@ setTimeout(() => {
     const color = el.getAttribute('paintcolor') || 'rgb(255, 194, 14)';
     createBrushStroke(color, el.offsetWidth, el.offsetHeight).then(blob => {
       const imgSrc = URL.createObjectURL(blob);
+      el.style.backgroundSize = '100%';
       el.style.backgroundImage = `url('${imgSrc}')`;
       el.style.backgroundColor = 'transparent';
-      el.style.backgroundSize = '100%';
     });
   });
 }, 1000);

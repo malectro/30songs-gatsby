@@ -10,19 +10,20 @@ export default function Page({
   data,
 }: {
   data: {
-    markdownRemark: {
+    pagesJson: {
+      content: {
       html: string;
-      frontmatter: {
+      };
         title: string;
         description: string;
-      };
     };
   };
 }) {
   const {
-    markdownRemark: {
-      html,
-      frontmatter: {description, title},
+    pagesJson: {
+      content: {html},
+      description,
+      title,
     },
   } = data;
 
@@ -35,13 +36,13 @@ export default function Page({
 
 export const query = graphql`
   query GenericPageQuery($id: String!) {
-    markdownRemark(id: {eq: $id}) {
+    pagesJson(id: {eq: $id}) {
       id
-      html
-      frontmatter {
-        description
-        title
+      content {
+        html
       }
+      description
+      title
     }
   }
 `;

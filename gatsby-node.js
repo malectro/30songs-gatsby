@@ -11,17 +11,13 @@ exports.createPages = async ({actions, graphql}) => {
   const [pages, songs] = await Promise.all([
     graphql(`
       {
-        allMarkdownRemark(
-          filter: {fileAbsolutePath: {regex: "/\/pages\//"}}
+        allPagesJson(
           limit: 1000
         ) {
           edges {
             node {
               id
-              fileAbsolutePath
-              frontmatter {
-                slug
-              }
+              slug
             }
           }
         }
@@ -29,17 +25,13 @@ exports.createPages = async ({actions, graphql}) => {
     `),
     graphql(`
       {
-        allMarkdownRemark(
-          filter: {fileAbsolutePath: {regex: "/\/songs\//"}}
+        allSongsJson(
           limit: 1000
         ) {
           edges {
             node {
               id
-              fileAbsolutePath
-              frontmatter {
-                number
-              }
+              number
             }
           }
         }
@@ -51,9 +43,9 @@ exports.createPages = async ({actions, graphql}) => {
     throw page.errors;
   }
 
-  pages.data.allMarkdownRemark.edges.forEach(({node}) => {
+  pages.data.allPagesJson.edges.forEach(({node}) => {
     createPage({
-      path: node.frontmatter.slug,
+      path: node.slug,
       component: pageComponent,
       context: {id: node.id}, // additional data can be passed via context
     });
@@ -63,21 +55,22 @@ exports.createPages = async ({actions, graphql}) => {
     throw songs.errors;
   }
 
-  songs.data.allMarkdownRemark.edges.forEach(({node}) => {
+  songs.data.allSongsJson.edges.forEach(({node}) => {
     createPage({
-      path: String(node.frontmatter.number),
+      path: String(node.number),
       component: songComponent,
       context: {id: node.id},
     });
   });
 };
 
+/*
 exports.onCreateNode = ({node}) => {
-  if (node.fileAbsolutePath && node.fileAbsolutePath.match(/\/songs\//)) {
+  if (node.artist) {
     ['bio', 'quote'].forEach(fieldName => {
-      const markdown = node.frontmatter[fieldName];
+      const markdown = node[fieldName];
       if (markdown) {
-        node.frontmatter[fieldName] = remark()
+        node[fieldName] = remark()
           .use(remarkHtml)
           .processSync(markdown)
           .toString();
@@ -86,3 +79,4 @@ exports.onCreateNode = ({node}) => {
   }
   return node;
 };
+*/

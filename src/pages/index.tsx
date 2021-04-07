@@ -11,17 +11,15 @@ import * as css from './index.module.css';
 
 export default () => {
   const data: {
-    allMarkdownRemark: {
+    allSongsJson: {
       edges: Array<{
         node: {
           id: string;
-          frontmatter: {
-            title: string;
-            artist: string;
-            number: number;
-          };
-        };
-      }>;
+          title: string;
+          artist: string;
+          number: number;
+        },
+      }>
     };
   } = useStaticQuery(query);
 
@@ -114,14 +112,14 @@ export default () => {
           </div>
 
           <ol className={css.songs}>
-            {data.allMarkdownRemark.edges.map(
+            {data.allSongsJson.edges.map(
               ({
                 node: {
                   id,
-                  frontmatter: {title, artist, number},
+                  title, artist, number,
                 },
               }) => (
-                <a className={css.song} href={`/${number}`}>
+                <Link className={css.song} to={`/${number}`}>
                   <li className={css.songItem}>
                     <span className={css.songNumber}>{number}</span>
                     <div className={css.songInfo}>
@@ -130,7 +128,7 @@ export default () => {
                     </div>
                     <div className={css.songArrow} />
                   </li>
-                </a>
+                </Link>
               ),
             )}
           </ol>
@@ -142,19 +140,17 @@ export default () => {
 
 const query = graphql`
   query HomePageQuery {
-    allMarkdownRemark(
-      sort: {order: DESC, fields: [frontmatter___number]}
-      filter: {fileAbsolutePath: {regex: "/songs\/[^\/]+/"}, frontmatter: {state: {eq: "published"}}}
+    allSongsJson(
+      sort: {order: DESC, fields: [number]}
+      filter: {state: {eq: "published"}}
     ) {
       edges {
         node {
           id
-          frontmatter {
-            artist
-            title
-            number
-            state
-          }
+          artist
+          title
+          number
+          state
         }
       }
     }

@@ -13,35 +13,23 @@ export default function Navigation({
   latestSongNumber?: number;
 }) {
   const data: {
-    allMarkdownRemark: {
-      edges: Array<{
-        node: {
-          id: string;
-          fileAbsolutePath: string;
-          frontmatter: {
-            url: string;
-            title: string;
-            state: string;
-          };
-        };
-      }>;
+    allSongsJson: {
+      totalCount: number;
     };
-    allNavLinksJson: {
-      edges: Array<{
-        node: {
-          url: string;
-          title: string;
-        };
-      }>;
-    };
+    allNavlinksJson: {
+      nodes: Array<{
+        url: string;
+        name: string;
+      }>,
+    }
   } = useStaticQuery(query);
 
   if (!data) {
     return null;
   }
 
-  const nodes = data.allMarkdownRemark.edges.map(({node}) => node);
-  const navLinks = data.allNavLinksJson.edges.map(({node}) => node);
+  const navLinks = data.allNavlinksJson.nodes;
+  const totalSongs = data.allSongsJson.totalCount;
 
   /*
   const navLinks = nodes
@@ -52,10 +40,12 @@ export default function Navigation({
     }));
   */
 
+  /*
   const totalSongs = nodes.filter(
     ({fileAbsolutePath, frontmatter: {state}}) =>
       state === 'published',
   ).length;
+   */
 
   return (
     <div className={css.fixedSpace}>
@@ -99,7 +89,7 @@ export default function Navigation({
           <div className={css.links} paintColor="">
             {navLinks.map(navLink => (
               <div className={css.link} key={navLink.url}>
-                <a href={navLink.url}>{navLink.title}</a>
+                <a href={navLink.url}>{navLink.name}</a>
               </div>
             ))}
           </div>
@@ -111,29 +101,17 @@ export default function Navigation({
 
 const query = graphql`
   query NavigationQuery {
-    allMarkdownRemark(
-      filter: {fileAbsolutePath: {regex: "//songs//"}}
-    ) {
-      edges {
-        node {
-          id
-          fileAbsolutePath
-          frontmatter {
-            title
-            url
-            order
-            state
-          }
-        }
+      allSongsJson(filter: {state: {eq: "published"}}) {
+    totalCount
+  }
+    allNavlinksJson(
+      sort: {
+        fields: [order]
       }
-    }
-    allNavLinksJson {
-      edges {
-        node {
-          title
-          url
-          order
-        }
+    ) {
+      nodes {
+        url
+        name
       }
     }
   }

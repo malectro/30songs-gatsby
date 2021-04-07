@@ -12,8 +12,7 @@ export default function Song({
   data,
 }: {
   data: {
-    markdownRemark: {
-      frontmatter: {
+    songsJson: {
         title: string;
         artist: string;
         day: number;
@@ -27,13 +26,11 @@ export default function Song({
         quote?: string;
         lyrics?: string;
         state: 'published' | 'draft' | 'archived';
-      };
     };
   };
 }) {
   const {
-    markdownRemark: {
-      frontmatter: {
+    songsJson: {
         artist,
         title,
         number,
@@ -46,7 +43,6 @@ export default function Song({
         gamePath,
         lyrics,
         quote,
-      },
     },
   } = data;
 
@@ -92,16 +88,20 @@ export default function Song({
 
         <div className={css.info}>
           <div className={css.infoCol1}>
-            {image &&
+            {image?.url &&
               (cropImage ? (
                 <div
                   className={css.image}
-                  style={{backgroundImage: `url(${image})`}}
+                  style={{backgroundImage: `url(${image.url})`}}
                 />
               ) : (
-                <img className={css.image} src={image} />
+                <img className={css.image} src={image.url} />
               ))}
-            <div className={css.bio} paintColor="" dangerouslySetInnerHTML={{__html: bio}} />
+            <div
+              className={css.bio}
+              paintColor=""
+              dangerouslySetInnerHTML={{__html: bio.html}}
+            />
           </div>
 
           <div className={css.infoCol2}>
@@ -113,7 +113,10 @@ export default function Song({
               </div>
             )}
 
-            <div className={css.quote} dangerouslySetInnerHTML={{__html: quote}} />
+            <div
+              className={css.quote}
+              dangerouslySetInnerHTML={{__html: quote.html}}
+            />
 
             <div className={css.lyricsLabel}>Lyrics</div>
             <p className={css.lyrics}>{lyrics}</p>
@@ -126,22 +129,26 @@ export default function Song({
 
 export const query = graphql`
   query SongQuery($id: String!) {
-    markdownRemark(id: {eq: $id}) {
+    songsJson(id: {eq: $id}) {
       id
-      frontmatter {
-        title
-        artist
-        day
-        number
-        youtubeUrl
-        spotifyUrl
-        image
-        cropImage
-        bio
-        quote
-        lyrics
-        state
+      title
+      artist
+      day
+      number
+      youtubeUrl
+      spotifyUrl
+      image {
+        url
       }
+      cropImage
+      bio {
+        html
+      }
+      quote {
+        html
+      }
+      lyrics
+      state
     }
   }
 `;
